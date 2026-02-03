@@ -1,0 +1,51 @@
+# Pruebas de Endpoints con JWT
+
+### 1. Test endpoint público (Sin autenticación)
+GET http://localhost:8080/public/hello
+
+###
+
+### 2. Login con usuario normal
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "password"
+}
+
+###
+
+### 3. Login con administrador
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
+
+### 4. Acceder a endpoint protegido (Reemplaza {TOKEN} con el token obtenido en el login)
+GET http://localhost:8080/secured/hello
+Authorization: Bearer {TOKEN}
+
+###
+
+### 5. Acceder a endpoint de admin (Reemplaza {TOKEN_ADMIN} con el token del admin)
+GET http://localhost:8080/admin/hello
+Authorization: Bearer {TOKEN_ADMIN}
+
+###
+
+### 6. Test - Intento de acceso sin token (debe fallar)
+GET http://localhost:8080/secured/hello
+
+###
+
+### 7. Test - Usuario normal intentando acceder a endpoint admin (debe fallar)
+GET http://localhost:8080/admin/hello
+Authorization: Bearer {TOKEN_USER}
+
+###
